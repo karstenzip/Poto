@@ -1,0 +1,19 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/website"
+    schedule:
+      interval: "monthly"
+    groups:
+      eslint:
+        patterns:
+          - "*prettier*"
+          - "*eslint*"
+      vue:
+        patterns:
+          - "*nuxt*"
+          - "*vue*"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
