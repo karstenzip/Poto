@@ -1,0 +1,29 @@
+.fade-enter-active,
+.fade-leave-active {
+	transition: all 1s;
+	max-height: 30rem;
+	overflow: hidden;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+	max-height: 0;
+}
+
+/************************************************/
+
+.insertion-move,
+.insertion-enter-active,
+.insertion-leave-active {
+	transition: all 1s;
+}
+
+.insertion-leave-active {
+	position: absolute;
+}
+
+.insertion-enter-from,
+.insertion-leave-to {
+	opacity: 0;
+}

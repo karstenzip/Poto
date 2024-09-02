@@ -1,0 +1,33 @@
+{
+	"name": "poto",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@nuxt/eslint": "^0.5.4",
+		"@nuxt/icon": "^1.5.0",
+		"@nuxtjs/seo": "^2.0.0-rc.19",
+		"@nuxtjs/tailwindcss": "^6.12.1",
+		"@vueuse/core": "^11.0.3",
+		"@vueuse/nuxt": "^11.0.3",
+		"nuxt": "^3.13.0",
+		"sharp": "^0.33.5",
+		"vue": "latest"
+	},
+	"devDependencies": {
+		"eslint": "^9.9.1",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"prettier": "^3.3.3",
+		"prettier-plugin-organize-imports": "^4.0.0",
+		"prettier-plugin-tailwindcss": "^0.6.6",
+		"typescript": "^5.5.4",
+		"vue-tsc": "~2.0.28"
+	}
+}
