@@ -11,10 +11,10 @@
 		"lint": "eslint ."
 	},
 	"dependencies": {
-		"@nuxt/eslint": "^0.5.7",
-		"@nuxt/icon": "^1.5.2",
+		"@nuxt/eslint": "^0.6.0",
+		"@nuxt/icon": "^1.5.6",
 		"@nuxtjs/seo": "^2.0.0-rc.23",
-		"@nuxtjs/tailwindcss": "^6.12.1",
+		"@nuxtjs/tailwindcss": "^6.12.2",
 		"@vueuse/core": "^11.1.0",
 		"@vueuse/nuxt": "^11.1.0",
 		"nuxt": "^3.13.2",
@@ -22,13 +22,13 @@
 		"vue": "latest"
 	},
 	"devDependencies": {
-		"eslint": "^9.11.1",
+		"eslint": "^9.13.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-prettier": "^5.2.1",
 		"prettier": "^3.3.3",
 		"prettier-plugin-organize-imports": "^4.1.0",
 		"prettier-plugin-tailwindcss": "^0.6.8",
-		"typescript": "^5.6.2",
+		"typescript": "^5.6.3",
 		"vue-tsc": "2.1.6"
 	}
 }
