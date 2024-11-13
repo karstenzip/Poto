@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine AS build
 
 WORKDIR /usr/src/app
 
@@ -12,6 +12,17 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 3000
+FROM node:20-alpine AS final
 
-CMD [ "node", ".output/server/index.mjs" ]
+WORKDIR /usr/src/app
+
+ENV NODE_ENV=production
+
+COPY --from=build --chown=node /usr/src/app/node_modules node_modules
+COPY --from=build --chown=node /usr/src/app/.output .output
+
+USER node
+
+EXPOSE 3000/tcp
+
+CMD ["node", ".output/server/index.mjs"]
