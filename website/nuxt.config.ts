@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	modules: [
 		"@vueuse/nuxt",
@@ -10,7 +9,7 @@ export default defineNuxtConfig({
 		name: "Poto",
 		url: "https://poto.karsten.zip",
 		description: "Poto Image Converter",
-		defautlLocale: "en"
+		defaultLocale: "en"
 	},
 	css: ["~/assets/css/transitions.css"],
 	typescript: {
