@@ -3,7 +3,6 @@ export default defineNuxtConfig({
 	modules: [
 		"@vueuse/nuxt",
 		"@nuxtjs/seo",
-		"@nuxt/icon",
 		"@nuxtjs/tailwindcss",
 		"@nuxt/eslint"
 	],
@@ -12,9 +11,6 @@ export default defineNuxtConfig({
 		url: "https://poto.karsten.zip",
 		description: "Poto Image Converter",
 		defautlLocale: "en"
-	},
-	icon: {
-		mode: "svg"
 	},
 	css: ["~/assets/css/transitions.css"],
 	typescript: {
