@@ -11,7 +11,7 @@
 		"lint": "eslint ."
 	},
 	"dependencies": {
-		"@nuxt/eslint": "^1.0.1",
+		"@nuxt/eslint": "^1.1.0",
 		"@nuxtjs/seo": "^2.1.1",
 		"@nuxtjs/tailwindcss": "^6.13.1",
 		"@vueuse/core": "^12.5.0",
@@ -21,10 +21,10 @@
 		"vue-tsc": "^2.2.0"
 	},
 	"devDependencies": {
-		"eslint": "^9.20.0",
+		"eslint": "^9.21.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-prettier": "^5.2.3",
-		"prettier": "^3.4.2",
+		"prettier": "^3.5.2",
 		"prettier-plugin-organize-imports": "^4.1.0",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"typescript": "^5.7.3"
