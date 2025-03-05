@@ -21,4 +21,13 @@ logs
 # Local env files
 .env
 .env.*
-!.env.example
+
+.github
+Dockerfile
+.dockerignore
+.git
+.gitignore
+README.md
+.editorconfig
+.prettierrc
+eslint.config.mjs
