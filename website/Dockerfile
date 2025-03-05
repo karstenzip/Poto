@@ -1,28 +1,22 @@
-FROM node:22-alpine AS build
+FROM node:22-alpine AS base
 
 WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
 
-COPY package*.json ./
+FROM base AS builder
 
+COPY package*.json ./
 RUN npm ci --omit=dev
 
 COPY . .
-
 RUN npm run build
 
-FROM node:22-alpine AS final
+FROM base AS runner
 
-WORKDIR /usr/src/app
-
-ENV NODE_ENV=production
-
-COPY --from=build --chown=node /usr/src/app/node_modules node_modules
-COPY --from=build --chown=node /usr/src/app/.output .output
+COPY --from=builder --chown=node /usr/src/app/.output ./
 
 USER node
-
 EXPOSE 3000/tcp
 
-CMD ["node", ".output/server/index.mjs"]
+CMD ["node", "server/index.mjs"]
