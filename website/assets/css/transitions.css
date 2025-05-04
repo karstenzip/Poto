@@ -27,3 +27,29 @@
 .insertion-leave-to {
 	opacity: 0;
 }
+
+/************************************************/
+
+.spinner-enter-active {
+	transition:
+		opacity 0.1s ease-in-out,
+		width 0.1s ease-in-out;
+}
+
+.spinner-leave-active {
+	transition:
+		opacity 0.1s ease-in-out,
+		width 0.1s ease-in-out;
+}
+
+.spinner-enter-from,
+.spinner-leave-to {
+	opacity: 0;
+	width: 0;
+}
+
+.spinner-enter-to,
+.spinner-leave-from {
+	opacity: 1;
+	width: 1.25rem; /* Size of spinner */
+}

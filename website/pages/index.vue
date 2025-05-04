@@ -5,13 +5,18 @@
 			<Dropzone v-model="files" class="w-96" />
 			<button
 				type="button"
-				class="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white opacity-100 transition-all duration-300 ease-in-out focus:outline-none disabled:opacity-50 dark:from-cyan-700 dark:to-blue-700 dark:disabled:opacity-60"
+				class="flex items-center rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white opacity-100 transition-all duration-300 ease-in-out focus:outline-none disabled:opacity-50 dark:from-cyan-700 dark:to-blue-700 dark:disabled:opacity-60"
 				:class="{
 					'hover:scale-110 hover:opacity-90': canUpload
 				}"
 				:disabled="!canUpload"
 				@click="uploadFiles"
 			>
+				<Transition name="spinner">
+					<span v-if="showSpinner" class="mr-3">
+						<Spinner />
+					</span>
+				</Transition>
 				Convert images
 			</button>
 		</div>
@@ -22,11 +27,20 @@
 const files = ref<Array<File>>([])
 
 const canUpload = computed(
-	() => files.value.length > 0 && files.value.length <= 5
+	() => files.value.length > 0 && files.value.length <= 5 && !uploading.value
 )
+const uploading = ref(false)
+const showSpinner = ref(false)
+let spinnerTimeout: NodeJS.Timeout
 
 async function uploadFiles() {
 	if (!canUpload.value) return
+
+	uploading.value = true
+
+	spinnerTimeout = setTimeout(() => {
+		showSpinner.value = true
+	}, 200)
 
 	const formData = new FormData()
 	files.value.forEach((file) => {
@@ -51,6 +65,16 @@ async function uploadFiles() {
 		}
 		reader.readAsDataURL(blob)
 	}
+	uploading.value = false
+	showSpinner.value = false
+	clearTimeout(spinnerTimeout)
 	files.value = []
 }
+
+watch(uploading, (newValue) => {
+	if (!newValue) {
+		clearTimeout(spinnerTimeout)
+		showSpinner.value = false
+	}
+})
 </script>
