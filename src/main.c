@@ -5,47 +5,46 @@
 
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 216
+#define PIXEL_SIZE 3
+#define LINE_BUFFER_SIZE (SCREEN_WIDTH * PIXEL_SIZE)
 
 void drawImage(const char *filename)
 {
     int file;
-    unsigned char buffer[3];
+    unsigned char lineBuffer[LINE_BUFFER_SIZE];
     unsigned int color;
-    int x = 0, y = 0;
 
     unsigned short utf16_filename[256];
     Bfile_StrToName_ncpy(utf16_filename, filename, strlen(filename) + 1);
 
-    // Open the binary file
-    file = Bfile_OpenFile_OS(utf16_filename, 0x01, 0); // 0x01 is the mode for read
+    file = Bfile_OpenFile_OS(utf16_filename, 0x01, 0); // Read mode
     if (file < 0)
     {
-        PrintXY(1, 1, "No image.bin found", TEXT_MODE_NORMAL, TEXT_COLOR_BLACK);
+        PrintXY(1, 1, "image.bin not found", TEXT_MODE_NORMAL, TEXT_COLOR_BLACK);
         return;
     }
 
-    // Read the RGB data and display it pixel by pixel
-    while (Bfile_ReadFile_OS(file, buffer, 3, -1) == 3)
+    for (int y = 0; y < SCREEN_HEIGHT; y++)
     {
-        // Convert the 24-bit RGB to the Casio color format
-        color = (buffer[0] >> 3) << 11 | (buffer[1] >> 2) << 5 | (buffer[2] >> 3);
-
-        Bdisp_SetPoint_VRAM(x, y, color);
-
-        x++;
-        if (x >= SCREEN_WIDTH)
+        // Read one full scanline
+        if (Bfile_ReadFile_OS(file, lineBuffer, LINE_BUFFER_SIZE, -1) != LINE_BUFFER_SIZE)
         {
-            x = 0;
-            Bdisp_PutDisp_DD();
+            break; // Incomplete image data
+        }
 
-            y++;
-            if (y >= SCREEN_HEIGHT)
-            {
-                break; // Full image painted
-            }
+        for (int x = 0; x < SCREEN_WIDTH; x++)
+        {
+            int i = x * PIXEL_SIZE;
+            // Convert 24-bit RGB to RGB565
+            color = ((lineBuffer[i] & 0xF8) << 8)       // Red
+                    | ((lineBuffer[i + 1] & 0xFC) << 3) // Green
+                    | (lineBuffer[i + 2] >> 3);         // Blue
+
+            Bdisp_SetPoint_VRAM(x, y, color);
         }
     }
 
+    Bdisp_PutDisp_DD();
     Bfile_CloseFile_OS(file);
 }
 
@@ -53,13 +52,9 @@ int main(void)
 {
     int key;
 
-    EnableStatusArea(3); // 3 means disable
-
-    // Enable full 16-bit color depth
-    Bdisp_EnableColor(1);
-
-    // Clear the screen
-    Bdisp_AllClr_VRAM();
+    EnableStatusArea(3);  // Hide status area
+    Bdisp_EnableColor(1); // Enable full color
+    Bdisp_AllClr_VRAM();  // Clear screen
 
     const char *filename = "\\\\fls0\\image.bin";
     drawImage(filename);
@@ -74,7 +69,6 @@ int main(void)
         }
     }
 
-    EnableStatusArea(2); // 2 means enable
-
+    EnableStatusArea(2); // Restore status area
     return 0;
 }
