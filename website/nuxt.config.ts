@@ -3,7 +3,7 @@ export default defineNuxtConfig({
 		"@vueuse/nuxt",
 		"@nuxtjs/seo",
 		"@nuxtjs/tailwindcss",
-		"@nuxt/eslint"
+		process.env.NODE_ENV === "development" && "@nuxt/eslint"
 	],
 	site: {
 		name: "Poto",
