@@ -6,6 +6,8 @@ ENV NODE_ENV=production
 
 FROM base AS builder
 
+ENV DOCKER_BUILD=true
+
 COPY package*.json ./
 RUN npm ci --omit=dev
 
