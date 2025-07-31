@@ -51,8 +51,8 @@ async function uploadFiles() {
 		method: "POST",
 		body: formData
 	})
-	for (const file in buffers) {
-		const blob = new Blob([new Uint8Array(buffers[file].data)], {
+	Object.entries(buffers).forEach(([file, buffer]) => {
+		const blob = new Blob([new Uint8Array(buffer.data)], {
 			type: "application/octet-stream"
 		})
 
@@ -64,7 +64,7 @@ async function uploadFiles() {
 			a.click()
 		}
 		reader.readAsDataURL(blob)
-	}
+	})
 	uploading.value = false
 	showSpinner.value = false
 	clearTimeout(spinnerTimeout)
