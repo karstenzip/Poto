@@ -1,26 +1,26 @@
----
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/website"
+  - package-ecosystem: npm
+    directory: /website
     schedule:
-      interval: "monthly"
+      interval: monthly
     groups:
-      eslint:
-        patterns:
-          - "*prettier*"
-          - "*eslint*"
-      vue:
-        patterns:
-          - "*nuxt*"
-          - "*vue*"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-patch"]
-  - package-ecosystem: "github-actions"
-    directory: "/"
+      major:
+        update-types:
+          - major
+      non-major:
+        update-types:
+          - minor
+          - patch
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "monthly"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-patch"]
+      interval: monthly
+    groups:
+      major:
+        update-types:
+          - major
+      non-major:
+        update-types:
+          - minor
+          - patch
